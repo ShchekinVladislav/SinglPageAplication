@@ -1,0 +1,24 @@
+<div *ngIf="menu" class="menu">
+  <div class="menu__item"><a routerLink="/home">Контакты</a></div>
+  <div class="menu__item"><a (click)="logout()" routerLink="/">Выйти</a></div>
+</div>
+<div *ngIf="!menu" class="window">
+  <div  class="form">
+    <div class="form__h">Вход</div>
+      <form (submit)="loginup($event)">
+        <div class="form__group field">
+          <input type="text" class="form__field" placeholder="Логин" name="login" id='login' value="" required />
+          <label for="login" class="form__label">Логин</label>
+        </div>
+        <div class="form__group field">
+          <input type="password" class="form__field" placeholder="Пароль" name="password" id='password' value="" required />
+          <label for="password" class="form__label">Пароль</label>
+        </div>
+        <div class="form__button"><button>Войти</button></div>
+        <div *ngIf="required" class="form__error">Все поля обязательны к заполнению</div>
+        <div *ngIf="error" class="form__error"> Данные введены не верно(</div>
+      </form>
+  </div>
+</div>
+<router-outlet></router-outlet>
+

@@ -1,0 +1,21 @@
+<div class="info">
+  <form (submit)="rename($event)">
+    <div class="form">
+      <div class="form__group field">
+      <input type="text" class="form__field" placeholder="Имя" name="name" id='name' value="{{contact_item.name}}" required />
+      <label for="name" class="form__label">Имя</label>
+    </div>
+      <div class="form__group field">
+      <input type="text" class="form__field" placeholder="Фамилия" name="last_name" id='last_name' value="{{contact_item.last_name}}" required />
+      <label for="last_name" class="form__label">Фамилия</label>
+    </div>
+      <div class="form__group field">
+      <input type="text" class="form__field" placeholder="Email" name="email" id='email' value="{{contact_item.email}}" required />
+      <label for="email" class="form__label">Email</label>
+    </div>
+      <div class="form__button"><button>Сохранить</button></div>
+      <div class="form__error" *ngIf="required">Все поля обязательны к заполнению</div>
+      <div class="form__success" *ngIf="success">Данные успешно изменены</div>
+    </div>
+  </form>
+</div>

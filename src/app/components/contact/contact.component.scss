@@ -1,0 +1,125 @@
+$secondary: #007bff;
+$gray: #9b9b9b;
+$danger : #dc3545;
+$success: #50b767;
+
+.info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 80px);
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 370px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form__field {
+  width: 200px;
+  border: 0;
+  border-bottom: 1px solid $gray;
+  outline: 0;
+  font-size: 1.3rem;
+  color: black;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+  }
+}
+.form__label {
+  font-family: 'Rubik', sans-serif;
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: $gray;
+}
+.form__field:focus {
+  ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $secondary;
+    font-weight:700;
+  }
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 1px;
+  border-color: $secondary;
+  border-image-slice: 1;
+}
+.form__field{
+  &:required,&:invalid { box-shadow:none; }
+}
+.form__button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  button{
+    font-family: 'Rubik', sans-serif;
+    width: 150px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    background-color: $secondary;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+}
+.form__error{
+  font-family: 'Rubik', sans-serif;
+  margin-top: 20px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  height: 40px;
+  background-color: $danger;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #ffff;
+}
+.form__success{
+  font-family: 'Rubik', sans-serif;
+  margin-top: 20px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  height: 40px;
+  background-color: $success;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #ffff;
+}

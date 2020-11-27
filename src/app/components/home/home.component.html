@@ -1,0 +1,62 @@
+<!--Модальное окно для добавления сотрудника-->
+<div class="window" *ngIf="modal_view">
+  <div class="modal" >
+  <form class="form" (submit)="add($event)">
+    <div class="form__h">Добавление контакта<span (click)="closed_modal()">&times;</span></div>
+    <div class="form__group field">
+      <input type="text" class="form__field" placeholder="Логин" name="name" id='name' value=""  />
+      <label for="name" class="form__label">Имя</label>
+    </div>
+    <div class="form__group field">
+      <input type="text" class="form__field" placeholder="Фамилия" name="last_name" id='last_name' value=""  />
+      <label for="last_name" class="form__label">Фамилия</label>
+    </div>
+    <div class="form__group field">
+      <input type="email" class="form__field" placeholder="Email" name="email" id='email' value=""  />
+      <label for="email" class="form__label">Email</label>
+    </div>
+
+    <div class="form__button"><button>Создать</button></div>
+    <div *ngIf="required" class="form__error">Все поля обязательны к заполнению</div>
+  </form>
+  </div>
+</div>
+
+<div class="search">
+  <input (input)="search()" type="text" placeholder="Поиск.." value="" id='qwery' name="qwery">
+</div>
+<div class="h">Список контактов</div>
+<div class="add" *ngIf="!result_search.length && !search_error"><button (click)="open_modal()">Добавить контакт</button></div>
+<div class="content__list" *ngIf="!result_search.length && !search_error">
+  <div class="search__error" *ngIf="error_lenght">Список ваших контактов пуст....</div>
+
+    <div *ngFor="let item of contact">
+      <div class="content__item">
+        <div class="content__item-text">
+          <div class="content__item-name">{{item.name}} {{item.last_name}}</div>
+          <div class="content__item-email">{{item.email}}</div>
+          <button (click)="open_contact(item.id)">Изменить</button>
+          <div class="content__item-del" (click)="del_contact(item.id)">Удалить</div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+<div class="search__error" *ngIf="search_error">
+  Упс...<br>
+  Такого контакта нет
+</div>
+<div class="content__list" *ngIf="result_search.length && !search_error">
+  <div *ngFor="let item of result_search">
+    <div class="content__item">
+      <div class="content__item-text">
+        <div class="content__item-name">{{item.name}} {{item.last_name}}</div>
+        <div class="content__item-email">{{item.email}}</div>
+        <button (click)="open_contact(item.id)">Изменить</button>
+        <div class="content__item-del" (click)="del_contact(item.id)">Удалить</div>
+      </div>
+    </div>
+  </div>
+</div>
+
