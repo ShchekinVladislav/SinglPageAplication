@@ -14,6 +14,8 @@ export class ContactComponent implements OnInit {
   public contact_item;
   public required = false;
   public success = false;
+  public selectedFile;
+  public imgURL;
 
   constructor(private http: HttpClient, private router: Router, public service: MainService, public route: ActivatedRoute) {
     if(!localStorage.session){//авторизован ли пользователь
@@ -39,6 +41,12 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  update_favorites(){
+    if(this.contact_item['favorites'] === true){
+      this.contact_item['favorites'] = false;
+    }
+    else this.contact_item['favorites'] = true;
+  }
   rename(event){
     this.required = false;
     for (var i = 0; i < this.contact.length; i++) {
@@ -50,12 +58,48 @@ export class ContactComponent implements OnInit {
           this.required = true;
           return;
         }
-        this.success = true;
-        this.contact[i] = {id: this.contact[i]['id'], name: name, last_name: last_name, email: email};
+        if(this.imgURL){
+          this.success = true;
+          this.contact[i] = {id: this.contact[i]['id'], name: name, last_name: last_name, email: email, favorites: this.contact_item['favorites'], avatar: this.imgURL};
+          this.contact_item = this.contact[i];
+        }
+        else{
+          this.success = true;
+          this.contact[i] = {id: this.contact[i]['id'], name: name, last_name: last_name, email: email, favorites: this.contact_item['favorites'], avatar: this.contact[i]['avatar']};
+          this.contact_item = this.contact[i];
+        }
+
       }
     }
     console.log(typeof this.contact);
     localStorage.setItem('contact', JSON.stringify(this.contact));
+  }
+  compressImage(src, newX, newY) {
+    return new Promise((res, rej) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        const elem = document.createElement('canvas');
+        elem.width = newX;
+        elem.height = newY;
+        const ctx = elem.getContext('2d');
+        ctx.drawImage(img, 0, 0, newX, newY);
+        const data = ctx.canvas.toDataURL();
+        res(data);
+      };
+      img.onerror = error => rej(error);
+    });
+  }
+  upload_avatar(event){
+    this.selectedFile =  event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL( event.target.files[0]);
+    reader.onload = (event2) => {
+      this.imgURL = reader.result;
+      this.compressImage(this.imgURL, 400, 400).then(compressed => {
+        this.imgURL = compressed;
+      });
+    };
   }
 
 }

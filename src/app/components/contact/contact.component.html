@@ -1,6 +1,18 @@
 <div class="info">
   <form (submit)="rename($event)">
     <div class="form">
+      <div class="form__avatar">
+        <div class="form__avatar_favorites">
+          <img *ngIf="contact_item.favorites === true" (click)="update_favorites()" src="assets/active.png">
+          <img *ngIf="contact_item.favorites === false" (click)="update_favorites()" src="assets/not_active.png">
+        </div>
+        <input type="file" id="avatar" class="input__avatar" (change)="upload_avatar($event)" accept="image/*">
+        <label for="avatar">
+          <img *ngIf="!imgURL && contact_item.avatar" style="width: 150px; height: 150px; border-radius: 50%;" src="{{contact_item.avatar}}">
+          <img *ngIf="imgURL" style="width: 150px; height: 150px; border-radius: 50%;" src="{{imgURL}}">
+          <div *ngIf="!contact_item.avatar" class="avatar__simulate">{{contact_item.name[0]}}{{contact_item.last_name[0]}}</div>
+        </label>
+      </div>
       <div class="form__group field">
       <input type="text" class="form__field" placeholder="Имя" name="name" id='name' value="{{contact_item.name}}" required />
       <label for="name" class="form__label">Имя</label>

@@ -3,6 +3,13 @@
   <div class="modal" >
   <form class="form" (submit)="add($event)">
     <div class="form__h">Добавление контакта<span (click)="closed_modal()">&times;</span></div>
+    <div class="form__avatar">
+    <input type="file" id="avatar" class="input__avatar" (change)="upload_avatar($event)"  accept="image/*">
+    <label for="avatar">
+      <div *ngIf="!imgURL" class="avatar__simulate">ФОТО</div>
+      <img *ngIf="imgURL"  style="width: 150px; height: 150px; border-radius: 50%;" src="{{imgURL}}">
+    </label>
+    </div>
     <div class="form__group field">
       <input type="text" class="form__field" placeholder="Логин" name="name" id='name' value=""  />
       <label for="name" class="form__label">Имя</label>
@@ -27,12 +34,21 @@
 </div>
 <div class="h">Список контактов</div>
 <div class="add" *ngIf="!result_search.length && !search_error"><button (click)="open_modal()">Добавить контакт</button></div>
+<div class="filter" *ngIf="!result_search.length && !search_error"><div *ngIf="!filer_favorites_value" class="filter__button_off" (click)="filer_favorites()">Избранные</div><div *ngIf="filer_favorites_value" class="filter__button_on" (click)="filer_favorites()">Отмена</div></div>
 <div class="content__list" *ngIf="!result_search.length && !search_error">
   <div class="search__error" *ngIf="error_lenght">Список ваших контактов пуст....</div>
 
     <div *ngFor="let item of contact">
       <div class="content__item">
         <div class="content__item-text">
+          <div class="content__item-star">
+            <img *ngIf="item.favorites === false" (click)="favorites(item.id)" src="assets/not_active.png">
+            <img *ngIf="item.favorites === true" (click)="favorites(item.id)" src="assets/active.png">
+          </div>
+          <div class="content__item-avatar">
+            <img *ngIf="item.avatar" style="width: 100px; height: 100px; border-radius: 50%" src="{{item.avatar}}">
+            <div *ngIf="!item.avatar" class="content__item-avatar__simulate">{{item.name[0]}}{{item.last_name[0]}}</div>
+          </div>
           <div class="content__item-name">{{item.name}} {{item.last_name}}</div>
           <div class="content__item-email">{{item.email}}</div>
           <button (click)="open_contact(item.id)">Изменить</button>
@@ -48,9 +64,15 @@
   Такого контакта нет
 </div>
 <div class="content__list" *ngIf="result_search.length && !search_error">
+<div class="filter" *ngIf="result_search.length && !search_error"><div *ngIf="!filer_favorites_value" class="filter__button_off" (click)="filer_favorites()">Избранные</div><div *ngIf="filer_favorites_value" class="filter__button_on" (click)="filer_favorites()">Отмена</div></div>
   <div *ngFor="let item of result_search">
     <div class="content__item">
       <div class="content__item-text">
+        <div class="content__item-star">
+          <img *ngIf="item.favorites === false" (click)="favorites(item.id)" src="assets/not_active.png">
+          <img *ngIf="item.favorites === true" (click)="favorites(item.id)" src="assets/active.png">
+        </div>
+        <div class="content__item-avatar"><img style="width: 100px; height: 100px" src="{{item.avatar}}"></div>
         <div class="content__item-name">{{item.name}} {{item.last_name}}</div>
         <div class="content__item-email">{{item.email}}</div>
         <button (click)="open_contact(item.id)">Изменить</button>

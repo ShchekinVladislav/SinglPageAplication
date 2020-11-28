@@ -14,10 +14,58 @@ $success: #50b767;
   display: flex;
   flex-direction: column;
   width: 300px;
-  height: 370px;
+  height: 550px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.form__avatar{
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .input__avatar{
+    position: absolute;
+    overflow: hidden;
+    z-index: -1;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+  }
+  label{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    .avatar__simulate{
+      display: flex;
+      width: 150px;
+      height: 150px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: $gray;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 35px;
+    }
+  }
+}
+.form__avatar_favorites{
+  position: absolute;
+  display: flex;
+  margin-top: -130px;
+  margin-left: -230px;
+  img{
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+  }
 }
 .form__group {
   position: relative;
